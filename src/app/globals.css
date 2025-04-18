@@ -78,37 +78,37 @@ body {
   }
 
   .dark {
-    --background: 220 14.3% 4.1%; /* Dark gray */
-    --foreground: 0 0% 96.1%; /* Near white */
-    --card: 220 14.3% 4.1%;
-    --card-foreground: 0 0% 96.1%;
-    --popover: 220 14.3% 4.1%;
-    --popover-foreground: 0 0% 96.1%;
-    --primary: 215 50% 50%; /* Steel blue */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 215.4 16.3% 17.8%;
-    --secondary-foreground: 0 0% 96.1%;
-    --muted: 215.4 16.3% 17.8%;
-    --muted-foreground: 217.9 10% 64.9%;
-    --accent: 180 100% 17%; /* Teal */
-    --accent-foreground: 0 0% 96.1%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 96.1%;
-    --border: 215.4 16.3% 17.8%;
-    --input: 215.4 16.3% 17.8%;
-    --ring: 215 50% 50%; /* Steel blue */
+    --background: 24 14% 6%;
+    --foreground: 0 0% 98%;
+    --card: 24 14% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 24 14% 6%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 220 70% 50%;
+    --primary-foreground: 220 80% 98%;
+    --secondary: 30 10% 14%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 25 15% 12%;
+    --muted-foreground: 215.4 16.3% 56.9%;
+    --accent: 150 80% 25%;
+    --accent-foreground: 24 14% 6%;
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 24 12% 12%;
+    --input: 24 14% 10%;
+    --ring: 220 70% 50%;
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-background: 24 14% 6%;
+    --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 224.3 76.3% 48%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-accent: 30 10% 14%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 24 12% 12%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
@@ -117,10 +117,11 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
-    @apply antialiased; /* For smoother fonts */
-    @apply transition-colors duration-300; /* Smooth transition for color changes */
+    @apply antialiased;
+    @apply transition-colors duration-300;
   }
 }
 
@@ -150,11 +151,12 @@ body {
   }
 
   .hide-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
+
   .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+    display: none;
   }
 
   .category-button {
