@@ -89,20 +89,18 @@ export default function Home() {
       <main className="flex flex-col w-full flex-1 px-4 py-2 md:px-8">
         {/* Categories */}
         <div className="py-4">
-          <ScrollArea className="pb-4">
-            <div className="flex justify-start space-x-2">
-              {categories.map(category => (
-                <CategoryItem key={category} category={category} />
-              ))}
-            </div>
-          </ScrollArea>
+          <div className="flex justify-start space-x-2 overflow-x-auto">
+            {categories.map(category => (
+              <CategoryItem key={category} category={category} />
+            ))}
+          </div>
         </div>
 
         {/* Promotions (Stories) */}
         <div className="py-4 group relative">
           <h2 className="text-2xl font-bold mb-4 text-foreground">Promoções</h2>
-          <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center">
-             <ScrollButton direction="left" onClick={() => scrollPromotions('left')} />
+          <ScrollButton direction="left" onClick={() => scrollPromotions('left')} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar">
             <div className="flex">
               <PromotionItem name="Promo 1" imageUrl="https://picsum.photos/200/200" />
               <PromotionItem name="Promo 2" imageUrl="https://picsum.photos/201/201" />
@@ -111,15 +109,15 @@ export default function Home() {
               <PromotionItem name="Promo 5" imageUrl="https://picsum.photos/204/204" />
               <PromotionItem name="Promo 6" imageUrl="https://picsum.photos/205/205" />
             </div>
-            <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
           </div>
+          <ScrollButton direction="right" onClick={() => scrollPromotions('right')} className="opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
 
         {/* Product List */}
         <div className="py-4 group relative">
           <h2 className="text-2xl font-bold mb-4 text-foreground">Produtos em Destaque</h2>
-          <div ref={productsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center">
-            <ScrollButton direction="left" onClick={() => scrollProducts('left')} />
+          <ScrollButton direction="left" onClick={() => scrollProducts('left')} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+          <div ref={productsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar">
             <div className="flex">
               {products.map(product => (
                 <Card key={product.id} className="w-64 flex-none">
@@ -150,8 +148,8 @@ export default function Home() {
                 </Card>
               ))}
             </div>
-            <ScrollButton direction="right" onClick={() => scrollProducts('right')} />
           </div>
+          <ScrollButton direction="right" onClick={() => scrollProducts('right')} className="opacity-0 group-hover:opacity-100 transition-opacity" />
         </div>
       </main>
 
@@ -184,3 +182,4 @@ export default function Home() {
     </div>
   );
 }
+
