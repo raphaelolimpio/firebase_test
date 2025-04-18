@@ -30,10 +30,10 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
 
   return (
     <>
-      <header className="bg-secondary p-4 text-secondary-foreground shadow-md transition-colors duration-300 dark:bg-gray-800">
+      <header className="bg-secondary p-4 text-secondary-foreground shadow-md transition-colors duration-300">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex-grow text-center">
-            <Link href="/" className="text-lg font-bold transition-colors dark:text-gray-100">
+            <Link href="/" className="text-lg font-bold transition-colors">
               Ferraco Palmas
             </Link>
           </div>
@@ -41,23 +41,23 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <nav className="flex items-center space-x-4">
             <button
               onClick={toggleDarkMode}
-              className="flex items-center hover:text-primary transition-colors dark:text-gray-100 dark:hover:text-blue-300"
+              className="flex items-center hover:text-primary transition-colors"
             >
               {isDarkMode ? <Sun className="mr-1" size={20} /> : <Moon className="mr-1" size={20} />}
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
-            <Link href="/profile" className="flex items-center hover:text-primary transition-colors dark:text-gray-100 dark:hover:text-blue-300">
+            <Link href="/profile" className="flex items-center hover:text-primary transition-colors">
               <User className="mr-1" size={20} />
               Profile
             </Link>
-            <Link href="/cart" className="flex items-center hover:text-primary transition-colors dark:text-gray-100 dark:hover:text-blue-300">
+            <Link href="/cart" className="flex items-center hover:text-primary transition-colors">
               <ShoppingCart className="mr-1" size={20} />
               Cart
             </Link>
           </nav>
         </div>
       </header>
-      <main className="container mx-auto py-8 transition-colors duration-300 dark:bg-gray-900 dark:text-gray-100">
+      <main className="container mx-auto py-8 transition-colors duration-300">
         {children}
       </main>
     </>
