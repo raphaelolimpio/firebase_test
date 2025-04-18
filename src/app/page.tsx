@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {getProducts} from '@/services/ferraco-palmas';
-import {useRef, useState, useEffect} from 'react';
+import {useRef, useState, useEffect, useCallback} from 'react';
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/hooks/use-toast"
@@ -22,7 +22,7 @@ const categories = ['Móveis', 'Ferro', 'Telhas', 'Outros'];
 
 function PromotionItem({name, imageUrl}: { name: string; imageUrl: string }) {
   return (
-    <div className="w-24 h-24 rounded-full overflow-hidden shadow-md border-2 border-primary/50 flex-none">
+    <div className="w-24 h-24 rounded-full overflow-hidden shadow-md border-2 border-primary/50 flex-none transition-transform duration-300 hover:scale-105">
       <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
     </div>
   );
@@ -30,7 +30,7 @@ function PromotionItem({name, imageUrl}: { name: string; imageUrl: string }) {
 
 function CategoryItem({category}: { category: string }) {
   return (
-    <Button variant="outline" size="sm" className="rounded-full px-3 py-1 text-sm font-medium">{category}</Button>
+    <Button variant="outline" size="sm" className="category-button">{category}</Button>
   );
 }
 
@@ -49,28 +49,28 @@ function ScrollButton({direction, onClick}: { direction: 'left' | 'right'; onCli
 
 function ProductCard({ product, addToCart }: { product: Product; addToCart: (product: Product) => void }) {
   return (
-    <Card className="w-64 flex-none">
+    <Card className="w-64 flex-none transition-shadow duration-300 hover:shadow-lg">
       <Link href={`/product/${product.id}`}>
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="w-full h-48 object-cover rounded-t-lg"
+          className="w-full h-48 object-cover rounded-t-lg transition-transform duration-300 hover:scale-105"
         />
         <CardContent className="p-4">
           <CardTitle className="text-lg font-semibold">{product.name}</CardTitle>
           <CardDescription className="text-sm text-muted-foreground line-clamp-2">
             {product.description}
           </CardDescription>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mt-2">
             <p className="text-xl font-bold text-primary">R$ {product.price.toFixed(2)}</p>
           </div>
         </CardContent>
       </Link>
       <CardFooter className="flex justify-between p-4">
-        <Button onClick={() => addToCart(product)}>
+        <Button onClick={() => addToCart(product)} className="transition-colors duration-200 hover:bg-primary/80">
           Adicionar
         </Button>
-        <Link href={`/product/${product.id}`} className="text-sm text-primary hover:underline">
+        <Link href={`/product/${product.id}`} className="text-sm text-primary hover:underline transition-colors duration-200">
           Ver Detalhes
         </Link>
       </CardFooter>
@@ -78,20 +78,11 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: (pro
   );
 }
 
-export default function Home() {
-  const [products, setProducts] = useState<Product[]>([]);
+async function ProductList() {
+  const products = await getProducts();
+
   const productsContainerRef = useRef<HTMLDivElement>(null);
-  const promotionsContainerRef = useRef<HTMLDivElement>(null);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const productList = await getProducts();
-      setProducts(productList);
-    };
-
-    fetchProducts();
-  }, []);
+  const { toast } = useToast()
 
   const addToCart = (product: Product) => {
     toast({
@@ -107,16 +98,65 @@ export default function Home() {
     }
   };
 
-  const scrollPromotions = (direction: 'left' | 'right') => {
-    if (promotionsContainerRef.current) {
-      const scrollAmount = promotionsContainerRef.current.offsetWidth * 0.8;
-      promotionsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
-    }
-  };
+  return (
+    <div className="py-4 group relative">
+      <h2 className="text-2xl font-bold mb-4 text-foreground">Produtos em Destaque</h2>
+      <ScrollButton direction="left" onClick={() => scrollProducts('left')} />
+      <div
+        ref={productsContainerRef}
+        className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar"
+      >
+        <div className="flex">
+          {products.map(product => (
+            <ProductCard key={product.id} product={product} addToCart={addToCart} />
+          ))}
+        </div>
+      </div>
+      <ScrollButton direction="right" onClick={() => scrollProducts('right')} />
+    </div>
+  );
+}
+
+export default function Home() {
+  const promotionsContainerRef = useRef<HTMLDivElement>(null);
+    const [products, setProducts] = useState<Product[]>([]);
+    const { toast } = useToast();
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      const fetchedProducts = await getProducts();
+      setProducts(fetchedProducts);
+    };
+
+    loadProducts();
+  }, []);
+
+    const scrollPromotions = useCallback((direction: 'left' | 'right') => {
+        if (promotionsContainerRef.current) {
+            const scrollAmount = promotionsContainerRef.current.offsetWidth * 0.8;
+            promotionsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
+        }
+    }, []);
+
+    const handleAddToCart = (product: Product) => {
+        toast({
+            title: "Adicionado ao carrinho!",
+            description: `${product.name} foi adicionado ao seu carrinho.`,
+        });
+    };
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background transition-colors duration-300">
       <main className="flex flex-col w-full flex-1 px-4 py-2 md:px-8">
+
+        {/* Categories */}
+        <div className="py-4">
+          <div className="flex justify-start space-x-2 overflow-x-auto">
+            {categories.map(category => (
+              <CategoryItem key={category} category={category} />
+            ))}
+          </div>
+        </div>
 
         {/* Promotions (Stories) */}
         <div className="py-4 group relative">
@@ -136,35 +176,23 @@ export default function Home() {
           <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
         </div>
 
-        {/* Categories */}
-        <div className="py-4">
-          <div className="flex justify-start space-x-2 overflow-x-auto">
-            {categories.map(category => (
-              <CategoryItem key={category} category={category} />
-            ))}
-          </div>
-        </div>
-
         {/* Product List */}
         <div className="py-4 group relative">
           <h2 className="text-2xl font-bold mb-4 text-foreground">Produtos em Destaque</h2>
-          <ScrollButton direction="left" onClick={() => scrollProducts('left')} />
-          <div
-            ref={productsContainerRef}
-            className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar"
-          >
+          <ScrollButton direction="left" onClick={() => scrollPromotions('left')} />
+          <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar">
             <div className="flex">
               {products.map(product => (
-                <ProductCard key={product.id} product={product} addToCart={addToCart} />
+                <ProductCard key={product.id} product={product} addToCart={handleAddToCart} />
               ))}
             </div>
           </div>
-          <ScrollButton direction="right" onClick={() => scrollProducts('right')} />
+          <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
         </div>
       </main>
 
       {/* Quick Access Icons */}
-      <footer className="sticky bottom-0 bg-secondary/80 backdrop-blur-md p-4 border-t border-muted">
+      <footer className="sticky bottom-0 bg-secondary/80 backdrop-blur-md p-4 border-t border-muted transition-colors duration-300">
         <div className="container mx-auto flex items-center justify-around">
           <Link
             href="/profile"

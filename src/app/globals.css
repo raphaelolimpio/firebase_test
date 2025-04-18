@@ -41,6 +41,7 @@ body {
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .light {
     --background: 220 20% 83%; /* Light gray */
     --foreground: 220 14.3% 4.1%;
@@ -75,6 +76,41 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
+  .dark {
+    --background: 220 14.3% 4.1%; /* Dark gray */
+    --foreground: 0 0% 96.1%; /* Near white */
+    --card: 220 14.3% 4.1%;
+    --card-foreground: 0 0% 96.1%;
+    --popover: 220 14.3% 4.1%;
+    --popover-foreground: 0 0% 96.1%;
+    --primary: 215 50% 50%; /* Steel blue */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215.4 16.3% 17.8%;
+    --secondary-foreground: 0 0% 96.1%;
+    --muted: 215.4 16.3% 17.8%;
+    --muted-foreground: 217.9 10% 64.9%;
+    --accent: 180 100% 17%; /* Teal */
+    --accent-foreground: 0 0% 96.1%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 96.1%;
+    --border: 215.4 16.3% 17.8%;
+    --input: 215.4 16.3% 17.8%;
+    --ring: 215 50% 50%; /* Steel blue */
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
 }
 
 @layer base {
@@ -84,6 +120,7 @@ body {
   body {
     @apply bg-background text-foreground;
     @apply antialiased; /* For smoother fonts */
+    @apply transition-colors duration-300; /* Smooth transition for color changes */
   }
 }
 
@@ -118,5 +155,9 @@ body {
   }
   .hide-scrollbar::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
+  }
+
+  .category-button {
+    @apply rounded-full px-3 py-1 text-sm font-medium transition-colors duration-200 hover:bg-accent hover:text-accent-foreground;
   }
 }
