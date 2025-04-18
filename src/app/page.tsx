@@ -2,12 +2,22 @@
 
 import {Product} from '@/services/ferraco-palmas';
 import Link from 'next/link';
-import {Instagram, ShoppingCart, User, MessageSquare, ChevronLeft, ChevronRight} from 'lucide-react';
+import {
+  Instagram,
+  ShoppingBag,
+  User,
+  MessageSquare,
+  ChevronLeft,
+  ChevronRight,
+} from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {ScrollArea} from '@/components/ui/scroll-area';
-import FeaturedProducts from '@/components/FeaturedProducts';
 import {getProducts} from '@/services/ferraco-palmas'; // Importing products data
 import {useRef} from 'react';
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { useToast } from "@/hooks/use-toast" // Import useToast hook
+import { useEffect, useState } from 'react';
 
 const categories = ['Móveis', 'Ferro', 'Telhas', 'Outros'];
 
@@ -29,7 +39,9 @@ function ScrollButton({direction, onClick}: { direction: 'left' | 'right'; onCli
   return (
     <button
       onClick={onClick}
-      className="absolute top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-secondary/70 text-secondary-foreground hover:bg-secondary shadow transition-colors opacity-0 group-hover:opacity-100 z-10"
+      className={`absolute top-1/2 transform -translate-y-1/2 p-2 rounded-full bg-secondary/70 text-secondary-foreground hover:bg-secondary shadow transition-colors z-10 ${
+        direction === 'left' ? 'left-2' : 'right-2'
+      }`}
     >
       {direction === 'left' ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
     </button>
@@ -37,52 +49,26 @@ function ScrollButton({direction, onClick}: { direction: 'left' | 'right'; onCli
 }
 
 export default function Home() {
-  const products = [
-    {
-      id: '1',
-      name: 'Ferro Quadrado 5/16" x 6m',
-      description: 'Barra de ferro quadrada, ideal para estruturas e construções.',
-      price: 29.99,
-      imageUrl: 'https://www.arcelormittal.com/siteelements/medias/images/resized/produtos-solucoes/construcao/vergalhao-barra-transfer_400x400.jpg',
-    },
-    {
-      id: '2',
-      name: 'Tubo Metalon 50x30 Chapa 18',
-      description: 'Tubo de aço carbono retangular, perfeito para diversas aplicações.',
-      price: 45.50,
-      imageUrl: 'https://img.elo7.com.br/product/original/2F5B3A4/tubo-metalon-50x30-chapa-18-6m-ferro.jpg',
-    },
-    {
-      id: '3',
-      name: 'Telha Trapézio Aço Galvalume',
-      description: 'Telha de aço galvalume com formato trapezoidal, alta resistência e durabilidade.',
-      price: 37.80,
-      imageUrl: 'https://cdn.leroymerlin.com.br/products/telha_trapezoidal_galvalume_43x110cm_espessura_0,43mm_precon_1679539822_c7bd_600x600.jpg',
-    },
-    {
-      id: '4',
-      name: 'Chapa Aço Carbono #20 (0,90mm)',
-      description: 'Chapa de aço carbono para cortes e soldas, diversas utilizações.',
-      price: 52.00,
-      imageUrl: 'https://static.wixstatic.com/media/e1cb6a_4081c7725b0a44908c05a366ff4169d4~mv2.jpg/v1/fill/w_560,h_420,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/e1cb6a_4081c7725b0a44908c05a366ff4169d4~mv2.jpg',
-    },
-    {
-      id: '5',
-      name: 'Vergalhão 10mm CA-50',
-      description: 'Vergalhão de aço para construção civil, alta resistência.',
-      price: 68.20,
-      imageUrl: 'https://www.ferroviariaonline.com.br/image/cache/catalog/barra-de-ferro-vergalhao-10mm-ca50-6m-500x500.jpg',
-    },
-    {
-      id: '6',
-      name: 'Arame Recozido BWG 18',
-      description: 'Arame recozido para amarrações e fixações.',
-      price: 19.90,
-      imageUrl: 'https://m.media-amazon.com/images/I/61W9a9VbAoL._AC_UF1000,1000_QL80_.jpg',
-    },
-  ];
+  const [products, setProducts] = useState<Product[]>([]);
   const productsContainerRef = useRef<HTMLDivElement>(null);
   const promotionsContainerRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast()
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const productList = await getProducts();
+      setProducts(productList);
+    };
+
+    fetchProducts();
+  }, []);
+
+  const addToCart = (product: Product) => {
+    toast({
+      title: "Adicionado ao carrinho!",
+      description: `${product.name} foi adicionado ao seu carrinho.`,
+    })
+  }
 
   const scrollProducts = (direction: 'left' | 'right') => {
     if (productsContainerRef.current) {
@@ -104,7 +90,7 @@ export default function Home() {
         {/* Categories */}
         <div className="py-4">
           <ScrollArea className="pb-4">
-            <div className="flex space-x-2">
+            <div className="flex justify-start space-x-2">
               {categories.map(category => (
                 <CategoryItem key={category} category={category} />
               ))}
@@ -114,44 +100,57 @@ export default function Home() {
 
         {/* Promotions (Stories) */}
         <div className="py-4 group relative">
-          <h2 className="text-2xl font-bold mb-4 text-foreground">Promotions</h2>
-          <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative">
-            <ScrollButton direction="left" onClick={() => scrollPromotions('left')} className="left-2" />
-            <PromotionItem name="Promo 1" imageUrl="https://picsum.photos/200/200" />
-            <PromotionItem name="Promo 2" imageUrl="https://picsum.photos/201/201" />
-            <PromotionItem name="Promo 3" imageUrl="https://picsum.photos/202/202" />
-            <PromotionItem name="Promo 4" imageUrl="https://picsum.photos/203/203" />
-            <PromotionItem name="Promo 5" imageUrl="https://picsum.photos/204/204" />
-            <PromotionItem name="Promo 6" imageUrl="https://picsum.photos/205/205" />
-            <ScrollButton direction="right" onClick={() => scrollPromotions('right')} className="right-2" />
+          <h2 className="text-2xl font-bold mb-4 text-foreground">Promoções</h2>
+          <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center">
+             <ScrollButton direction="left" onClick={() => scrollPromotions('left')} />
+            <div className="flex">
+              <PromotionItem name="Promo 1" imageUrl="https://picsum.photos/200/200" />
+              <PromotionItem name="Promo 2" imageUrl="https://picsum.photos/201/201" />
+              <PromotionItem name="Promo 3" imageUrl="https://picsum.photos/202/202" />
+              <PromotionItem name="Promo 4" imageUrl="https://picsum.photos/203/203" />
+              <PromotionItem name="Promo 5" imageUrl="https://picsum.photos/204/204" />
+              <PromotionItem name="Promo 6" imageUrl="https://picsum.photos/205/205" />
+            </div>
+            <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
           </div>
         </div>
 
         {/* Product List */}
         <div className="py-4 group relative">
-          <h2 className="text-2xl font-bold mb-4 text-foreground">Featured Products</h2>
-          <div ref={productsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative">
-            <ScrollButton direction="left" onClick={() => scrollProducts('left')} className="left-2" />
-            {products.map(product => (
-              <div
-                key={product.id}
-                className="bg-card rounded-lg shadow-md overflow-hidden w-64 flex-none transition-shadow hover:shadow-lg snap-start"
-              >
-                <Link href={`/product/${product.id}`}>
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="w-full h-48 object-cover product-image"
-                  />
-                  <div className="p-4">
-                    <h3 className="text-lg font-semibold text-foreground">{product.name}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{product.description}</p>
-                    <p className="mt-2 font-bold text-primary">${product.price}</p>
-                  </div>
-                </Link>
-              </div>
-            ))}
-            <ScrollButton direction="right" onClick={() => scrollProducts('right')} className="right-2" />
+          <h2 className="text-2xl font-bold mb-4 text-foreground">Produtos em Destaque</h2>
+          <div ref={productsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center">
+            <ScrollButton direction="left" onClick={() => scrollProducts('left')} />
+            <div className="flex">
+              {products.map(product => (
+                <Card key={product.id} className="w-64 flex-none">
+                  <Link href={`/product/${product.id}`}>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      className="w-full h-48 object-cover rounded-t-lg"
+                    />
+                    <CardContent className="p-4">
+                      <CardTitle className="text-lg font-semibold">{product.name}</CardTitle>
+                      <CardDescription className="text-sm text-muted-foreground line-clamp-2">
+                        {product.description}
+                      </CardDescription>
+                      <div className="flex items-center justify-between">
+                        <p className="text-xl font-bold text-primary">R$ {product.price.toFixed(2)}</p>
+                      </div>
+                    </CardContent>
+                  </Link>
+                  <CardFooter className="flex justify-between p-4">
+                    <Button onClick={() => addToCart(product)}>
+                      Adicionar
+                    </Button>
+                    <Link href={`/product/${product.id}`} className="text-sm text-primary hover:underline">
+                      Ver Detalhes
+                    </Link>
+                  </CardFooter>
+                </Card>
+              ))}
+            </div>
+            <ScrollButton direction="right" onClick={() => scrollProducts('right')} />
           </div>
         </div>
       </main>
@@ -164,21 +163,21 @@ export default function Home() {
             className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
           >
             <User className="mb-1" size={20} />
-            <span className="text-xs">Profile</span>
+            <span className="text-xs">Perfil</span>
           </Link>
           <Link
             href="/cart"
             className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors relative"
           >
-            <ShoppingCart className="mb-1" size={20} />
-            <span className="text-xs">Cart</span>
+            <ShoppingBag className="mb-1" size={20} />
+            <span className="text-xs">Carrinho</span>
           </Link>
           <Link
             href="/support"
             className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
           >
             <MessageSquare className="mb-1" size={20} />
-            <span className="text-xs">Support</span>
+            <span className="text-xs">Suporte</span>
           </Link>
         </div>
       </footer>
