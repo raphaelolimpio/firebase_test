@@ -148,6 +148,15 @@ export default function Home() {
         <div className="flex flex-col min-h-screen bg-background transition-colors duration-300">
             <main className="flex flex-col w-full flex-1 px-4 py-2 md:px-8">
 
+              {/* Categories */}
+              <div className="py-4">
+                  <div className="flex justify-start space-x-2 overflow-x-auto">
+                      {categories.map(category => (
+                          <CategoryItem key={category} category={category} />
+                      ))}
+                  </div>
+              </div>
+
                 {/* Promotions (Stories) */}
                 <div className="py-4 group relative">
                     <h2 className="text-2xl font-bold mb-4 text-foreground">Promoções</h2>
@@ -166,14 +175,7 @@ export default function Home() {
                     <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
                 </div>
 
-                {/* Categories */}
-                <div className="py-4">
-                    <div className="flex justify-start space-x-2 overflow-x-auto">
-                        {categories.map(category => (
-                            <CategoryItem key={category} category={category} />
-                        ))}
-                    </div>
-                </div>
+
 
                 {/* Product List */}
                 <div className="py-4 group relative">
