@@ -9,6 +9,7 @@ import {
   MessageSquare,
   ChevronLeft,
   ChevronRight,
+  List
 } from 'lucide-react';
 import {Badge} from '@/components/ui/badge';
 import {getProducts} from '@/services/ferraco-palmas';
@@ -118,6 +119,7 @@ async function ProductList() {
 
 export default function Home() {
     const promotionsContainerRef = useRef<HTMLDivElement>(null);
+    const productsContainerRef = useRef<HTMLDivElement>(null);
     const [products, setProducts] = useState<Product[]>([]);
     const { toast } = useToast();
 
@@ -130,13 +132,6 @@ export default function Home() {
         loadProducts();
     }, []);
 
-    const scrollPromotions = useCallback((direction: 'left' | 'right') => {
-        if (promotionsContainerRef.current) {
-            const scrollAmount = promotionsContainerRef.current.offsetWidth * 0.8;
-            promotionsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
-        }
-    }, []);
-
     const handleAddToCart = (product: Product) => {
         toast({
             title: "Adicionado ao carrinho!",
@@ -144,10 +139,23 @@ export default function Home() {
         });
     };
 
+  const scrollPromotions = useCallback((direction: 'left' | 'right') => {
+    if (promotionsContainerRef.current) {
+      const scrollAmount = promotionsContainerRef.current.offsetWidth * 0.8;
+      promotionsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
+    }
+  }, []);
+
+    const scrollProducts = useCallback((direction: 'left' | 'right') => {
+        if (productsContainerRef.current) {
+            const scrollAmount = productsContainerRef.current.offsetWidth * 0.8;
+            productsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
+        }
+    }, []);
+
     return (
         <div className="flex flex-col min-h-screen bg-background transition-colors duration-300">
             <main className="flex flex-col w-full flex-1 px-4 py-2 md:px-8">
-
               {/* Categories */}
               <div className="py-4">
                   <div className="flex justify-start space-x-2 overflow-x-auto">
@@ -180,15 +188,15 @@ export default function Home() {
                 {/* Product List */}
                 <div className="py-4 group relative">
                     <h2 className="text-2xl font-bold mb-4 text-foreground">Produtos em Destaque</h2>
-                    <ScrollButton direction="left" onClick={() => scrollPromotions('left')} />
-                    <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar">
+                    <ScrollButton direction="left" onClick={() => scrollProducts('left')} />
+                    <div ref={productsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar">
                         <div className="flex">
                             {products.map(product => (
                                 <ProductCard key={product.id} product={product} addToCart={handleAddToCart} />
                             ))}
                         </div>
                     </div>
-                    <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
+                    <ScrollButton direction="right" onClick={() => scrollProducts('right')} />
                 </div>
             </main>
 
@@ -209,6 +217,13 @@ export default function Home() {
                         <ShoppingBag className="mb-1" size={20} />
                         <span className="text-xs">Carrinho</span>
                     </Link>
+                  <Link
+                    href="/products"
+                    className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    <List className="mb-1" size={20} />
+                    <span className="text-xs">Produtos</span>
+                  </Link>
                     <Link
                         href="/support"
                         className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors"
