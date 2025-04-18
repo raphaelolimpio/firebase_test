@@ -31,7 +31,7 @@ function PromotionItem({name, imageUrl}: { name: string; imageUrl: string }) {
 
 function CategoryItem({category}: { category: string }) {
   return (
-    <Button variant="outline" size="sm" className="category-button">{category}</Button>
+    <Button variant="outline" size="sm" className="text-sm font-medium transition-colors duration-200">{category}</Button>
   );
 }
 
@@ -78,44 +78,6 @@ function ProductCard({ product, addToCart }: { product: Product; addToCart: (pro
   );
 }
 
-async function ProductList() {
-  const products = await getProducts();
-
-  const productsContainerRef = useRef<HTMLDivElement>(null);
-  const { toast } = useToast()
-
-  const addToCart = (product: Product) => {
-    toast({
-      title: "Adicionado ao carrinho!",
-      description: `${product.name} foi adicionado ao seu carrinho.`,
-    });
-  };
-
-  const scrollProducts = (direction: 'left' | 'right') => {
-    if (productsContainerRef.current) {
-      const scrollAmount = productsContainerRef.current.offsetWidth * 0.8;
-      productsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
-    }
-  };
-
-  return (
-    <div className="py-4 group relative">
-      <h2 className="text-2xl font-bold mb-4 text-foreground">Produtos em Destaque</h2>
-      <ScrollButton direction="left" onClick={() => scrollProducts('left')} />
-      <div
-        ref={productsContainerRef}
-        className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar"
-      >
-        <div className="flex">
-          {products.map(product => (
-            <ProductCard key={product.id} product={product} addToCart={addToCart} />
-          ))}
-        </div>
-      </div>
-      <ScrollButton direction="right" onClick={() => scrollProducts('right')} />
-    </div>
-  );
-}
 
 export default function Home() {
     const promotionsContainerRef = useRef<HTMLDivElement>(null);
@@ -156,17 +118,8 @@ export default function Home() {
     return (
         <div className="flex flex-col min-h-screen bg-background transition-colors duration-300">
             <main className="flex flex-col w-full flex-1 px-4 py-2 md:px-8">
-              {/* Categories */}
-              <div className="py-4">
-                  <div className="flex justify-start space-x-2 overflow-x-auto">
-                      {categories.map(category => (
-                          <CategoryItem key={category} category={category} />
-                      ))}
-                  </div>
-              </div>
-
-                {/* Promotions (Stories) */}
-                <div className="py-4 group relative">
+              {/* Promotions (Stories) */}
+              <div className="py-4 group relative">
                     <h2 className="text-2xl font-bold mb-4 text-foreground">Promoções</h2>
                     <ScrollButton direction="left" onClick={() => scrollPromotions('left')} />
                     <div ref={promotionsContainerRef} className="flex space-x-4 overflow-x-auto scroll-smooth snap-x snap-mandatory relative items-center hide-scrollbar">
@@ -182,8 +135,15 @@ export default function Home() {
                     </div>
                     <ScrollButton direction="right" onClick={() => scrollPromotions('right')} />
                 </div>
-
-
+              
+              {/* Categories */}
+              <footer className="sticky bg-secondary/80 backdrop-blur-md p-4 border-t border-muted transition-colors duration-300">
+                <div className="container mx-auto flex items-center justify-around">
+                    {categories.map(category => (
+                        <CategoryItem key={category} category={category} />
+                    ))}
+                </div>
+            </footer>
 
                 {/* Product List */}
                 <div className="py-4 group relative">
