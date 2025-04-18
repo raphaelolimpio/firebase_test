@@ -1,6 +1,8 @@
 import type {Metadata} from 'next';
 import {Geist, Geist_Mono} from 'next/font/google';
 import './globals.css';
+import Link from 'next/link';
+import {ShoppingCart} from 'lucide-react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -25,7 +27,29 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
+        <header className="bg-secondary p-4 text-secondary-foreground">
+          <div className="container mx-auto flex items-center justify-between">
+            <Link href="/" className="text-lg font-bold">
+              Ferraco Palmas
+            </Link>
+            <nav>
+              <ul className="flex space-x-4">
+                <li>
+                  <Link href="/profile">Profile</Link>
+                </li>
+                <li>
+                  <Link href="/cart" className="flex items-center">
+                    <ShoppingCart className="mr-1" size={20} />
+                    Cart
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+        <main className="container mx-auto py-8">
+          {children}
+        </main>
       </body>
     </html>
   );
