@@ -8,7 +8,7 @@ import {ScrollArea} from '@/components/ui/scroll-area';
 import FeaturedProducts from '@/components/FeaturedProducts';
 import {getProducts} from '@/services/ferraco-palmas'; // Importing products data
 
-const categories = ['Ferro', 'Móveis', 'Telhas', 'Outros'];
+const categories = ['Móveis', 'Ferro', 'Telhas', 'Outros'];
 
 function PromotionItem({name, imageUrl}: { name: string; imageUrl: string }) {
   return (
@@ -30,6 +30,17 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <main className="flex flex-col w-full flex-1 px-4 py-2 md:px-8">
+        {/* Categories */}
+        <div className="py-2">
+          <ScrollArea className="pb-4">
+            <div className="flex space-x-2">
+              {categories.map(category => (
+                <CategoryItem key={category} category={category} />
+              ))}
+            </div>
+          </ScrollArea>
+        </div>
+
         {/* Promotions (Stories) */}
         <div className="py-4">
           <ScrollArea className="pb-4">
@@ -40,17 +51,6 @@ export default async function Home() {
               <PromotionItem name="Promo 4" imageUrl="https://picsum.photos/203/203" />
               <PromotionItem name="Promo 5" imageUrl="https://picsum.photos/204/204" />
               <PromotionItem name="Promo 6" imageUrl="https://picsum.photos/205/205" />
-            </div>
-          </ScrollArea>
-        </div>
-
-        {/* Categories */}
-        <div className="py-2">
-          <ScrollArea className="pb-4">
-            <div className="flex space-x-2">
-              {categories.map(category => (
-                <CategoryItem key={category} category={category} />
-              ))}
             </div>
           </ScrollArea>
         </div>
