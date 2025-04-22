@@ -1,10 +1,10 @@
 'use client';
 
-import {Product} from '@/services/ferraco-palmas';
+import {Product} from '@/services/ferraco-palmas'; // Import from services
 import Link from 'next/link';
 import {useState, useEffect} from 'react';
-import {products as productList} from '@/data/products'; // Importing products data
-import {Badge} from '@/components/ui/badge';
+import {Badge} from '@/components/ui/badge'; // Import from components
+
 
 interface FeaturedProductsProps {
   products: Product[];

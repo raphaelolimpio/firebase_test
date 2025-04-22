@@ -14,67 +14,57 @@ body {
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 0%;
     --popover-foreground: 0 0% 98%;
-    --primary: 22 95% 48%; /* Orange */
+    --primary: 208 90% 50%; /* Blue */
     --primary-foreground: 0 0% 0%; /* Black */
-    --secondary: 0 0% 20%; /* Dark Gray */
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%; /* Slightly Lighter Dark Gray */
-    --muted-foreground: 0 0% 60%; /* Medium Gray */
-    --accent: 22 95% 48%; /* Orange */
+    --secondary: 0 0% 100%; /* White */
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 85%; /* Light Gray */
+    --muted-foreground: 0 0% 40%; /* Medium Dark Gray */
+    --accent: 208 90% 50%; /* Blue */
     --accent-foreground: 0 0% 0%; /* Black */
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 30%; /* Darker Gray */
     --input: 0 0% 10%; /* Very Dark Gray */
-    --ring: 22 95% 48%; /* Orange */
-    --chart-1: 22 95% 48%; /* Orange */
-    --chart-2: 38 92% 56%; /* Light Orange */
-    --chart-3: 46 98% 66%; /* Pale Orange */
-    --chart-4: 30 100% 35%; /* Dark Orange */
-    --chart-5: 16 100% 25%; /* Very Dark Orange */
+    --ring: 208 90% 50%; /* Blue */
     --sidebar-background: 0 0% 10%; /* Very Dark Gray */
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 22 95% 48%; /* Orange */
+    --sidebar-primary: 208 90% 50%; /* Blue */
     --sidebar-primary-foreground: 0 0% 0%; /* Black */
-    --sidebar-accent: 0 0% 15%; /* Slightly Lighter Dark Gray */
+    --sidebar-accent: 0 0% 85%; /* Light Gray */
     --sidebar-accent-foreground: 0 0% 98%;
     --sidebar-border: 0 0% 30%; /* Darker Gray */
-    --sidebar-ring: 22 95% 48%; /* Orange */
+    --sidebar-ring: 208 90% 50%; /* Blue */
   }
 
   .light {
     --background: 0 0% 98%; /* White */
     --foreground: 0 0% 0%; /* Black */
-    --card: 0 0% 100%;
+    --card: 0 0% 98%;
     --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
+    --popover: 0 0% 98%;
     --popover-foreground: 0 0% 0%;
-    --primary: 22 95% 48%; /* Orange */
+    --primary: 208 90% 50%; /* Blue */
     --primary-foreground: 0 0% 0%; /* Black */
-    --secondary: 0 0% 90%; /* Light Gray */
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 85%; /* Slightly Darker Light Gray */
-    --muted-foreground: 0 0% 40%; /* Medium Gray */
-    --accent: 22 95% 48%; /* Orange */
+    --secondary: 0 0% 100%; /* White */
+    --secondary-foreground: 0 0% 0%; /* Black */
+    --muted: 0 0% 90%; /* Very Light Gray */
+    --muted-foreground: 0 0% 60%; /* Medium Dark Gray */
+    --accent: 208 90% 50%; /* Blue */
     --accent-foreground: 0 0% 0%; /* Black */
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 80%; /* Light Gray Border */
-    --input: 0 0% 95%; /* Very Light Gray Input */
-    --ring: 22 95% 48%; /* Orange */
-    --chart-1: 22 95% 48%; /* Orange */
-    --chart-2: 38 92% 56%; /* Light Orange */
-    --chart-3: 46 98% 66%; /* Pale Orange */
-    --chart-4: 30 100% 35%; /* Dark Orange */
-    --chart-5: 16 100% 25%; /* Very Dark Orange */
+    --border: 0 0% 80%; /* Light Gray */
+    --input: 0 0% 95%; /* Very Light Gray */
+    --ring: 208 90% 50%; /* Blue */
     --sidebar-background: 0 0% 95%; /* Very Light Gray */
-    --sidebar-foreground: 0 0% 30%;
-    --sidebar-primary: 22 95% 48%; /* Orange */
-    --sidebar-primary-foreground: 0 0% 0%; /* Black */
-    --sidebar-accent: 0 0% 85%; /* Slightly Darker Light Gray */
-    --sidebar-accent-foreground: 0 0% 30%;
-    --sidebar-border: 0 0% 80%; /* Light Gray Border */
-    --sidebar-ring: 22 95% 48%; /* Orange */
+    --sidebar-foreground: 0 0% 0%;
+    --sidebar-primary: 208 90% 50%; /* Blue */
+    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-accent: 0 0% 90%; /* Very Light Gray */
+    --sidebar-accent-foreground: 0 0% 0%;
+    --sidebar-border: 0 0% 80%; /* Light Gray */
+    --sidebar-ring: 208 90% 50%; /* Blue */
   }
 
   .dark {
@@ -84,32 +74,27 @@ body {
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 0%;
     --popover-foreground: 0 0% 98%;
-    --primary: 22 95% 48%; /* Orange */
+    --primary: 208 90% 50%; /* Blue */
     --primary-foreground: 0 0% 0%; /* Black */
-    --secondary: 0 0% 20%; /* Dark Gray */
+    --secondary: 0 0% 100%; /* White */
     --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 15%; /* Slightly Lighter Dark Gray */
+    --muted: 0 0% 85%; /* Light Gray */
     --muted-foreground: 0 0% 60%; /* Medium Gray */
-    --accent: 22 95% 48%; /* Orange */
+    --accent: 208 90% 50%; /* Blue */
     --accent-foreground: 0 0% 0%; /* Black */
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 30%; /* Darker Gray */
     --input: 0 0% 10%; /* Very Dark Gray */
-    --ring: 22 95% 48%; /* Orange */
-    --chart-1: 22 95% 48%; /* Orange */
-    --chart-2: 38 92% 56%; /* Light Orange */
-    --chart-3: 46 98% 66%; /* Pale Orange */
-    --chart-4: 30 100% 35%; /* Dark Orange */
-    --chart-5: 16 100% 25%; /* Very Dark Orange */
+    --ring: 208 90% 50%; /* Blue */
     --sidebar-background: 0 0% 10%; /* Very Dark Gray */
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 22 95% 48%; /* Orange */
+    --sidebar-primary: 208 90% 50%; /* Blue */
     --sidebar-primary-foreground: 0 0% 0%; /* Black */
     --sidebar-accent: 0 0% 15%; /* Slightly Lighter Dark Gray */
     --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 0 0% 30%; /* Darker Gray */
-    --sidebar-ring: 22 95% 48%; /* Orange */
+    --sidebar-border: 0 0% 30%;
+    --sidebar-ring: 208 90% 50%; /* Blue */
   }
 }
 
@@ -162,4 +147,9 @@ body {
   .category-button {
     @apply rounded-full px-3 py-1 text-sm font-medium transition-colors duration-200 hover:bg-accent hover:text-accent-foreground;
   }
+  .quick-access-icon{
+    @apply transition-colors duration-200
+  }
 }
+
+

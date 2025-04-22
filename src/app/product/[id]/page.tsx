@@ -1,5 +1,5 @@
-
-import {Product, getProducts} from '@/services/ferraco-palmas';
+import { getProducts } from "@/services/ferraco-palmas";
+import { Product } from "@/services/ferraco-palmas";
 
 interface ProductDetailsProps {
   params: {

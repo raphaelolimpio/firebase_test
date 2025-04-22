@@ -1,4 +1,4 @@
-
+import React from 'react';
 const ProfilePage = () => {
   return (
     <div className="flex flex-col items-center py-8">

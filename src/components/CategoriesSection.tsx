@@ -1,7 +1,7 @@
 
 'use client';
 
-import  CategoryItem  from './CategoryItem';
+import CategoryItem from './CategoryItem';
 
 interface CategoriesSectionProps {
   categories: string[];

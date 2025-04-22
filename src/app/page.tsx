@@ -1,23 +1,21 @@
 'use client';
 
-import { Product } from '@/services/ferraco-palmas';
-import { getProducts } from '@/services/ferraco-palmas';
-import { useRef, useState, useCallback, useEffect } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import { CategoriesSection } from "/home/user/studio/src/components/CategoriesSection";
-import {PromotionsSection} from '@/components/PromotionsSection';
-import {ProductListSection} from '@/components/ProductListSection';
+import { CategoriesSection } from '@/components/CategoriesSection';
 import PageLayout from '@/components/PageLayout';
+import { ProductListSection } from '@/components/ProductListSection';
+import { PromotionsSection } from '@/components/PromotionsSection';
+import { useToast } from '@/hooks/use-toast';
+import { getProducts, Product } from '@/services/ferraco-palmas';
+import {useRef, useState, useCallback, useEffect} from 'react';
 
 
-const categories = ['Móveis', 'Containers', 'Ferro'];
+const categories = ['Móveis', 'Containers', 'Ferro'];//TODO: change to categories service
 
 
 export default function Home() {
     const [products, setProducts] = useState<Product[]>([]);
     const promotionsContainerRef = useRef<HTMLDivElement>(null);
     const productsContainerRef = useRef<HTMLDivElement>(null);
-
     const { toast } = useToast();
 
 
@@ -50,9 +48,13 @@ export default function Home() {
             productsContainerRef.current.scrollLeft += direction === 'left' ? -scrollAmount : scrollAmount;
         }
     }, []);
-    return (<PageLayout>
-        <CategoriesSection categories={categories} />
-        <PromotionsSection promotionsContainerRef={promotionsContainerRef} scrollPromotions={scrollPromotions} />
-        <ProductListSection products={products} addToCart={handleAddToCart} productsContainerRef={productsContainerRef} scrollProducts={scrollProducts} />
-    </PageLayout>);
+    return (
+      <PageLayout>
+        <CategoriesSection categories={categories}/>
+        <PromotionsSection promotionsContainerRef={promotionsContainerRef}
+                           scrollPromotions={scrollPromotions}/>
+        <ProductListSection products={products} addToCart={handleAddToCart} productsContainerRef={productsContainerRef}
+                            scrollProducts={scrollProducts}/>
+      </PageLayout>
+    );
 }

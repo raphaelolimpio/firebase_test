@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import {ShoppingCart, User, Sun, Moon} from 'lucide-react';
 import {useState, useEffect} from 'react';
-
+  
 export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -41,17 +41,17 @@ export default function ClientLayout({ children }: { children: React.ReactNode }
           <nav className="flex items-center space-x-4">
             <button
               onClick={toggleDarkMode}
-              className="flex items-center hover:text-primary transition-colors"
+              className="flex items-center hover:text-primary transition-colors duration-200"
             >
-              {isDarkMode ? <Sun className="mr-1" size={20} /> : <Moon className="mr-1" size={20} />}
+              {isDarkMode ? <Sun className="mr-1 transition-colors duration-200" size={20} /> : <Moon className="mr-1 transition-colors duration-200" size={20} />}
               {isDarkMode ? 'Light Mode' : 'Dark Mode'}
             </button>
-            <Link href="/profile" className="flex items-center hover:text-primary transition-colors">
+            <Link href="/profile" className="flex items-center hover:text-primary transition-colors duration-200">
               <User className="mr-1" size={20} />
               Profile
             </Link>
-            <Link href="/cart" className="flex items-center hover:text-primary transition-colors">
-              <ShoppingCart className="mr-1" size={20} />
+            <Link href="/cart" className="flex items-center hover:text-primary transition-colors duration-200">
+              <ShoppingCart className="mr-1 transition-colors duration-200" size={20} />
               Cart
             </Link>
           </nav>

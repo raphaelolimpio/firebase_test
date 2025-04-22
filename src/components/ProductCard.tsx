@@ -1,10 +1,11 @@
 'use client';
 
-import { Product } from '@/services/ferraco-palmas';
+
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardFooter, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardTitle } from './ui/card';
+import { Button } from './ui/button';
 import Image from 'next/image';
+import { Product } from '@/services/ferraco-palmas';
 
 interface ProductCardProps {
   product: Product;
@@ -35,13 +36,13 @@ function ProductCard({ product, addToCart }: ProductCardProps) {
       <CardFooter className="flex justify-between p-4 bg-black">
         <Button
           onClick={() => addToCart(product)}
-          className="transition-colors duration-200 bg-orange-500 hover:bg-orange-700 text-black"
+          className="transition-colors duration-200 bg-primary hover:bg-primary/80 text-black"
         >
           Adicionar
         </Button>
         <Link
           href={`/product/${product.id}`}
-          className="text-sm text-orange-500 hover:underline transition-colors duration-200"
+          className="text-sm text-primary hover:underline transition-colors duration-200"
         >
           Ver Detalhes
         </Link>
